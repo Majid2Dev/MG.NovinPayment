@@ -4,7 +4,7 @@ This package for BNovinE Payment Gateway | درگاه پرداخت بانک اق
 
 ## Installation
 
-Use the Nuget package manager [pip](https://pip.pypa.io/en/stable/) to install MG.NovinPayment.
+Use the Nuget package manager  to install MG.NovinPayment.
 
 ```bash
 Install-Package MG.NovinPayment -Version 1.2.0
