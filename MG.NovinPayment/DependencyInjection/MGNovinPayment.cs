@@ -5,7 +5,7 @@ namespace MG.NovinPayment.DpenedenciInjection
 {
     public static class MGNovinPayment
     {
-        public static IServiceCollection UseMGNovinPayment(this IServiceCollection service)
+        public static IServiceCollection AddMGNovinPayment(this IServiceCollection service)
         {
 
             //register ApiCallTools

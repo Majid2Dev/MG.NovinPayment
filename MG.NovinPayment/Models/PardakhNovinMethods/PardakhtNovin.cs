@@ -42,14 +42,6 @@ namespace MG.NovinPayment.Models.PardakhNovinMethods
                 };
             }
             return result;
-
-
-
-
-
-
-
-
         }
         public PardakhtNovinParams.PardakhtNovinWSContext FillWSContext(string sessionId, string userName, string password)
         {
@@ -166,6 +158,12 @@ namespace MG.NovinPayment.Models.PardakhNovinMethods
             paymentUrl = paymentUrl.Replace("{TOKEN}", token);
             return paymentUrl;
         }
+        public static string CreatePaymetnUrl(string token)
+        {
+
+          string  paymentUrl = $"https://pna.shaparak.ir/_ipgw_//payment/?token={token}&lang=fa";
+            return paymentUrl;
+        }
 
         public async Task<RequestPardakhtNovinLogoutResult> LogOut(PardakhtNovinParams.PardakhtNovinLogout sessionId, string apiUrl)
         {
@@ -217,5 +215,139 @@ namespace MG.NovinPayment.Models.PardakhNovinMethods
             return VerfiyResult;
         }
 
+        public async Task<RequestResultLogin> LoginAsync(string userName = "", string password = "")
+        {
+            var loginParam = new PardakhtNovinParams.PardakhtNovinLogin
+            {
+                UserName = userName,
+                Password = password
+            };
+            var loginResult = await _callApis.CallingApiAsync<PardakhtNovinParams.PardakhtNovinLoginResult>("https://pna.shaparak.ir/ref-payment2/RestServices/mts/merchantLogin/", loginParam);
+            RequestResultLogin result = null;
+            if (loginResult.Result.Equals(successText))
+            {
+                result = new RequestResultLogin
+                {
+                    IsSuccess = true,
+                    SessionId = loginResult.SessionId,
+                    Descriptions = loginResult.Result,
+                };
+            }
+            else
+            {
+                result = new RequestResultLogin
+                {
+                    IsSuccess = false,
+                    Descriptions = loginResult.Result,
+                    SessionId = "NULL"
+                };
+            }
+            return result;
+        }
+
+        public async Task<RequestGenerateTreanscationDataToSignResult> GenerateTreanscationDataToSignAsync(PardakhtNovinParams.PardakhtNovinRequestParam request)
+        {
+            var payResult = await _callApis.CallingApiAsync<PardakhtNovinParams.PardakhtNovinGenerateTreanscationDataToSign>("https://pna.shaparak.ir/ref-payment2/RestServices/mts/generateTransactionDataToSign/", request);
+            RequestGenerateTreanscationDataToSignResult Result = null;
+            if (payResult.Result.Equals(successText))
+            {
+                Result = new RequestGenerateTreanscationDataToSignResult
+                {
+                    DataToSign = payResult.DataToSign,
+                    IsSuccess = true,
+                    UniqueId = payResult.UniqueId,
+                    Descriptions = payResult.Result
+                };
+            }
+            else
+            {
+                Result = new RequestGenerateTreanscationDataToSignResult
+                {
+                    DataToSign = payResult.DataToSign,
+                    IsSuccess = false,
+                    UniqueId = payResult.UniqueId,
+                    Descriptions = payResult.Result
+
+                };
+            }
+            return Result;
+        }
+
+        public async Task<RequestPardakhtNovinGenerateSignedDataTokenResult> GenerateSignedDataTokenAsync(PardakhtNovinParams.PardakhtNovinGenerateSignedDataToken signedDataToken)
+        {
+            var tokenResult = await _callApis.CallingApiAsync<PardakhtNovinParams.PardakhtNovinGenerateSignedDataTokenResult>(
+              "https://pna.shaparak.ir/ref-payment2/RestServices/mts/generateSignedDataToken/", signedDataToken);
+            RequestPardakhtNovinGenerateSignedDataTokenResult Result = null;
+            if (tokenResult.Result.Equals(successText))
+            {
+                Result = new RequestPardakhtNovinGenerateSignedDataTokenResult
+                {
+                    IsSuccess = true,
+                    ExpirationDate = tokenResult.ExpirationDate,
+                    Token = tokenResult.Token,
+                    Descriptions = tokenResult.Result,
+                };
+            }
+            else
+            {
+                Result = new RequestPardakhtNovinGenerateSignedDataTokenResult
+                {
+                    IsSuccess = false,
+                    ExpirationDate = "NULL",
+                    Token = "NULL",
+                    Descriptions = tokenResult.Result,
+
+                };
+            }
+            return Result;
+        }
+
+        public async Task<RequestPardakhtNovinLogoutResult> LogOut(PardakhtNovinParams.PardakhtNovinLogout sessionId)
+        {
+            var Result = await _callApis.CallingApiAsync<PardakhtNovinParams.PardakhtNovinLogoutResult>("https://pna.shaparak.ir/ref-payment2/RestServices/mts/merchantLogout/", sessionId);
+            RequestPardakhtNovinLogoutResult logoutResult = null;
+            if (Result.Result.Equals(successText))
+            {
+                logoutResult = new RequestPardakhtNovinLogoutResult
+                {
+                    IsSuccess = true,
+                    SessionId = Result.SessionId,
+                    Descriptions = Result.Result
+                };
+            }
+            else
+            {
+                logoutResult = new RequestPardakhtNovinLogoutResult
+                {
+                    SessionId = "Null",
+                    IsSuccess = false,
+                    Descriptions = Result.Result
+
+                };
+            }
+            return logoutResult;
+        }
+
+        public async Task<RequestPardakhtNovinVerifyTransactionReult> VerifyTransaction(PardakhtNovinParams.PardakhtNovinVerifyTransaction request)
+        {
+            var Result = await _callApis.CallingApiAsync<PardakhtNovinParams.PardakhtNovinVerifyTransactionReult>
+               ("https://pna.shaparak.ir/ref-payment2/RestServices/mts/verifyMerchantTrans/", request);
+            RequestPardakhtNovinVerifyTransactionReult VerfiyResult = null;
+            if (Result.Result.Equals(successText))
+            {
+                VerfiyResult = new RequestPardakhtNovinVerifyTransactionReult
+                {
+                    IsSuccess = true
+                };
+            }
+            else
+            {
+                VerfiyResult = new RequestPardakhtNovinVerifyTransactionReult
+                {
+                    IsSuccess = false
+                };
+            }
+            return VerfiyResult;
+        }
     }
 }
