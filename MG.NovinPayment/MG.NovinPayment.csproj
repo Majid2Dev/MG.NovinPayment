@@ -11,10 +11,14 @@
     <Description>درگاه پرداخت بانک اقتصاد نوین- BNovin Pament GateWay</Description>
     <AnalysisLevel>none</AnalysisLevel>
     <NeutralLanguage>fa-IR</NeutralLanguage>
-    <PackageReleaseNotes>Version 1</PackageReleaseNotes>
-    <PackageTags>Novin - MG.NovinPayment - Payemnt - MajidGorgin- </PackageTags>
+    <PackageReleaseNotes>Version 1 پکیج فعلا روش خرید از طریق توکن بیس پیاده سازی شده  :)</PackageReleaseNotes>
+    <PackageTags>Novin  MG.NovinPayment  Payemnt   MajidGorgin  asp.net core 3.1</PackageTags>
     <PackageProjectUrl>https://github.com/GorginMajid/MG.NovinPayment</PackageProjectUrl>
     <PackageIcon>MG.NovinPaymentLogo.png</PackageIcon>
+    <UserSecretsId>3ea47389-f4ef-47b3-9d15-a2963218eb93</UserSecretsId>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Version>1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.13" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.20" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
