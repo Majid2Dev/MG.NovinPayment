@@ -1,6 +1,6 @@
 # MG.NovinPayment
 
-This package for BNovinE Payment Gateway | این پکیچ برای کار کردن با درگاه پرداخت بانک اقتصاد نوین  
+This package for BNovinE Payment Gateway | درگاه پرداخت بانک اقتصاد نوین  
 
 ## Installation
 
