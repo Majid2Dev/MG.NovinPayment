@@ -38,7 +38,7 @@ using MG.NovinPayment.Models.PardakhNovinMethods;
 
         public async Task<IActionResult> Index()
         {
-            var result = await _pardakht.LoginAsync("test", "test");
+            var result = await _pardakht.LoginAsync("UserName", "Password");
             return View();
         }
 
